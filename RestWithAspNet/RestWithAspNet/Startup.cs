@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RestWithAspNet.Model.Context;
 using RestWithAspNet.Services;
 using RestWithAspNet.Services.Implementations;
 using System;
@@ -29,6 +31,16 @@ namespace RestWithAspNet
         {
 
             services.AddControllers();
+
+
+            //Database
+            var connectionString = "server=localhost;user=root;password=root;database=rest_with_aspnet";
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 36));
+
+            services.AddDbContext<MySqlContext>(
+            dbContextOptions => dbContextOptions
+                .UseMySql(connectionString, serverVersion)
+            );
 
             //Injeção de Dependencia
             services.AddScoped<IPersonService, PersonServiceImplementation>();

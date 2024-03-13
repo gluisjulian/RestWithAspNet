@@ -6,7 +6,7 @@ using RestWithAspNet.Services;
 namespace RestWithAspNet.Controllers
 {
     [ApiController]
-    [Route("[api/controller]")]
+    [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
@@ -18,11 +18,11 @@ namespace RestWithAspNet.Controllers
             _personService = personService;
         }
 
+
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_personService.FindAll());
-
         }
 
 
@@ -51,7 +51,7 @@ namespace RestWithAspNet.Controllers
         public IActionResult Put([FromBody] Person person)
         {
             if (person == null) return NotFound();
-            return Ok(_personService.Create(person));
+            return Ok(_personService.Update(person));
         }
 
 
