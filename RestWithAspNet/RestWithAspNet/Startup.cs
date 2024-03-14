@@ -37,6 +37,12 @@ namespace RestWithAspNet
             var connectionString = "server=localhost;user=root;password=root;database=rest_with_aspnet";
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 36));
 
+
+            //Versionamento
+            services.AddApiVersioning();
+
+            
+            //Context
             services.AddDbContext<MySqlContext>(
             dbContextOptions => dbContextOptions
                 .UseMySql(connectionString, serverVersion)
