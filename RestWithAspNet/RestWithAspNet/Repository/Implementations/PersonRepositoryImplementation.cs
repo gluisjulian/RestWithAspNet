@@ -3,15 +3,14 @@ using RestWithAspNet.Model.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace RestWithAspNet.Services.Implementations
+namespace RestWithAspNet.Repository.Implementations
 {
-    public class PersonServiceImplementation : IPersonService
+    public class PersonRepositoryImplementation : IPersonRepository
     {
         private readonly MySqlContext _context;
 
-        public PersonServiceImplementation(MySqlContext context)
+        public PersonRepositoryImplementation(MySqlContext context)
         {
             _context = context;
         }
@@ -83,11 +82,6 @@ namespace RestWithAspNet.Services.Implementations
             return person;
         }
 
-        private bool Exists(long id)
-        {
-            return _context.Persons.Any(x => x.Id.Equals(id));
-        }
-
         public void Delete(long id)
         {
             try
@@ -101,6 +95,12 @@ namespace RestWithAspNet.Services.Implementations
 
                 throw new Exception(ex.Message);
             }
+        }
+
+
+        public bool Exists(long id)
+        {
+            return _context.Persons.Any(x => x.Id.Equals(id));
         }
 
     }
