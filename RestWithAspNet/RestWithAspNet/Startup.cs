@@ -45,8 +45,14 @@ namespace RestWithAspNet
             );
 
             //Injeção de Dependencia
+            //Repository
             services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
+            services.AddScoped<IBookRepository, BookRepositoryImplementation>();
+            
+            
+            //Business
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
+            services.AddScoped<IBookBusiness, BookBusinessImplementation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
