@@ -8,6 +8,7 @@ using RestWithAspNet.Business;
 using RestWithAspNet.Business.Implementations;
 using RestWithAspNet.Model.Context;
 using RestWithAspNet.Repository;
+using RestWithAspNet.Repository.Generic;
 using RestWithAspNet.Repository.Implementations;
 using System;
 
@@ -53,6 +54,9 @@ namespace RestWithAspNet
             //Business
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
+
+            //GenericRepository
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

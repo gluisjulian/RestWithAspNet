@@ -65,7 +65,7 @@ namespace RestWithAspNet.Repository.Implementations
             if (!Exists(person.Id)) return new Person();
 
             var result = _context.Persons.SingleOrDefault(x => x.Id.Equals(person.Id));
-            if(result != null)
+            if (result != null)
             {
                 try
                 {
@@ -84,16 +84,19 @@ namespace RestWithAspNet.Repository.Implementations
 
         public void Delete(long id)
         {
-            try
+            var result = _context.Persons.FirstOrDefault(x => x.Id == id);
+            if (result != null)
             {
-                var result = _context.Persons.FirstOrDefault(x => x.Id == id);
-                _context.Persons.Remove(result);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
+                try
+                {
+                    _context.Persons.Remove(result);
+                    _context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
 
-                throw new Exception(ex.Message);
+                    throw new Exception(ex.Message);
+                }
             }
         }
 
