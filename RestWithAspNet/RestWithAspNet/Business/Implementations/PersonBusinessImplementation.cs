@@ -11,10 +11,10 @@ namespace RestWithAspNet.Business.Implementations
         private readonly IRepository<Person> _repository;
         private readonly PersonConverter _converter;
 
-        public PersonBusinessImplementation(IRepository<Person> repository, PersonConverter converter)
+        public PersonBusinessImplementation(IRepository<Person> repository)
         {
             _repository = repository;
-            _converter = converter;
+            _converter = new PersonConverter();
         }
 
 

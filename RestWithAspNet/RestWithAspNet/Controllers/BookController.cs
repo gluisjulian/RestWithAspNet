@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithAspNet.Business;
-using RestWithAspNet.Model;
+using RestWithAspNet.Data.Vo;
 
 namespace RestWithAspNet.Controllers
 {
@@ -41,18 +41,18 @@ namespace RestWithAspNet.Controllers
 
 
         [HttpPost]
-        public IActionResult Post([FromBody] Book book)
+        public IActionResult Post([FromBody] BookVO bookVo)
         {
-            if (book == null) return NotFound();
-            return Ok(_bookBusiness.Create(book));
+            if (bookVo == null) return NotFound();
+            return Ok(_bookBusiness.Create(bookVo));
         }
 
 
         [HttpPut]
-        public IActionResult Put([FromBody] Book book)
+        public IActionResult Put([FromBody] BookVO bookVo)
         {
-            if (book == null) return NotFound();
-            return Ok(_bookBusiness.Update(book));
+            if (bookVo == null) return NotFound();
+            return Ok(_bookBusiness.Update(bookVo));
         }
 
 

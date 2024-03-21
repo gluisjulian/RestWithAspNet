@@ -1,5 +1,6 @@
-﻿using RestWithAspNet.Model;
-using RestWithAspNet.Repository;
+﻿using RestWithAspNet.Data.Converter.Implementations;
+using RestWithAspNet.Data.Vo;
+using RestWithAspNet.Model;
 using RestWithAspNet.Repository.Generic;
 using System.Collections.Generic;
 
@@ -8,31 +9,38 @@ namespace RestWithAspNet.Business.Implementations
     public class BookBusinessImplementation : IBookBusiness
     {
         private readonly IRepository<Book> _repository;
+        private readonly BookConverter _converter;
 
         public BookBusinessImplementation(IRepository<Book> repository)
         {
             _repository = repository;
+            _converter = new BookConverter();
+
         }
 
-        public List<Book> FindAll()
+        public List<BookVO> FindAll()
         {
-            return _repository.FindAll();
+            return _converter.Parse(_repository.FindAll());
         }
 
-        public Book FindById(long id)
+        public BookVO FindById(long id)
         {
-            return _repository.FindById(id);
+            return _converter.Parse(_repository.FindById(id));
         }
 
-        public Book Create(Book book)
+        public BookVO Create(BookVO bookVo)
         {
-            return _repository.Create(book);
+            var bookEntity = _converter.Parse(bookVo);
+            bookEntity = _repository.Create(bookEntity);
+            return _converter.Parse(bookEntity);
         }
 
 
-        public Book Update(Book book)
+        public BookVO Update(BookVO bookVo)
         {
-            return _repository.Update(book);
+            var bookEntity = _converter.Parse(bookVo);
+            bookEntity = _repository.Update(bookEntity);
+            return _converter.Parse(bookEntity);
         }
 
 
