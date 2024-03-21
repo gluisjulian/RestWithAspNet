@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using RestWithAspNet.Model;
 using RestWithAspNet.Business;
+using RestWithAspNet.Data.Vo;
 
 namespace RestWithAspNet.Controllers
 {
@@ -41,18 +42,18 @@ namespace RestWithAspNet.Controllers
 
 
         [HttpPost]
-        public IActionResult Post([FromBody] Person person)
+        public IActionResult Post([FromBody] PersonVO personVo)
         {
-            if (person == null) return NotFound();
-            return Ok(_personBusiness.Create(person));
+            if (personVo == null) return NotFound();
+            return Ok(_personBusiness.Create(personVo));
         }
 
 
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        public IActionResult Put([FromBody] PersonVO personVo)
         {
-            if (person == null) return NotFound();
-            return Ok(_personBusiness.Update(person));
+            if (personVo == null) return NotFound();
+            return Ok(_personBusiness.Update(personVo));
         }
 
 
