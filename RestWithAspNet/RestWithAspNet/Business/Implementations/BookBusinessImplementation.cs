@@ -1,4 +1,6 @@
-﻿using RestWithAspNet.Data.Converter.Implementations;
+﻿using AutoMapper;
+using RestWithAspNet.Data.Converter.Implementations;
+using RestWithAspNet.Data.DTO;
 using RestWithAspNet.Data.Vo;
 using RestWithAspNet.Model;
 using RestWithAspNet.Repository.Generic;
@@ -10,17 +12,23 @@ namespace RestWithAspNet.Business.Implementations
     {
         private readonly IRepository<Book> _repository;
         private readonly BookConverter _converter;
+        private IMapper _mapper;
 
-        public BookBusinessImplementation(IRepository<Book> repository)
+        public BookBusinessImplementation(IRepository<Book> repository,IMapper mapper)
         {
             _repository = repository;
             _converter = new BookConverter();
+            _mapper = mapper;
 
         }
 
-        public List<BookVO> FindAll()
+        public List<BookDTO> FindAll()
         {
-            return _converter.Parse(_repository.FindAll());
+            var book = _repository.FindAll();
+            var bookDto = _mapper.Map<List<BookDTO>>(book);
+            return bookDto;
+
+            //return _converter.Parse(_repository.FindAll());
         }
 
         public BookVO FindById(long id)

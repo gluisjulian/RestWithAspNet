@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using RestWithAspNet.Business;
 using RestWithAspNet.Business.Implementations;
 using RestWithAspNet.Model.Context;
+using RestWithAspNet.Profiles;
 using RestWithAspNet.Repository;
 using RestWithAspNet.Repository.Generic;
 using RestWithAspNet.Repository.Implementations;
@@ -28,6 +29,9 @@ namespace RestWithAspNet
         {
 
             services.AddControllers();
+
+            //Configurar DI AutoMapper
+            services.AddAutoMapper(typeof(BookProfile));
 
 
             //Database
