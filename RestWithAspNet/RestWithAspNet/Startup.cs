@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using RestWithAspNet.Business;
 using RestWithAspNet.Business.Implementations;
 using RestWithAspNet.Model.Context;
@@ -33,6 +34,17 @@ namespace RestWithAspNet
             //Database
             var connectionString = "server=localhost;user=root;password=root;database=rest_with_aspnet";
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 36));
+
+
+            //Content Negotiation
+            services.AddMvc(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            })
+            .AddXmlSerializerFormatters();
 
 
             //Versionamento
